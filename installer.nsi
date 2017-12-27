@@ -111,7 +111,7 @@ FunctionEnd
 	Delete "$INSTDIR\ssleay32.dll"
 	Delete "$INSTDIR\QtWebEngineProcess.exe"    
 	Delete "$INSTDIR\libeay32.dll"
-	Delete "$INSTDIR\boost_python-vc141-mt-1_??.dll"
+	Delete "$INSTDIR\boost_python-vc141-mt-x64-?_??.dll"
     Delete "$INSTDIR\loot\lootcli.exe"
     Delete "$INSTDIR\loot\loot_api.dll"
     Delete "$INSTDIR\platforms\qwindows.dll"
@@ -182,6 +182,8 @@ Section "!Mod Organizer" Section1
     SetOutPath "$INSTDIR\plugins\"
     File "${BASE}\install\bin\plugins\installer_bundle.dll"
     File "${BASE}\install\bin\plugins\diagnose_basic.dll"
+	File "${BASE}\install\bin\plugins\bsa_extractor.dll"
+	File "${BASE}\install\bin\plugins\inibakery.dll"
     CreateDirectory "$INSTDIR\logs"
     SetOutPath "$INSTDIR\license\"
     File "installer_data\license\*.txt"
@@ -467,7 +469,14 @@ Section Uninstall
 
     ; Clean up qt dll option
     Delete "$INSTDIR\DLLs\dlls.manifest"
-    
+	
+	; Clean up License
+    Delete "$INSTDIR\license\*"
+	
+	; Clean up DLL option
+	Delete "$INSTDIR\DLLs\imageformats\*"
+    Delete "$INSTDIR\DLLs\*"
+
     ; Clean up stylesheet option
     Delete "$INSTDIR\stylesheets\*.qss"
     
@@ -476,10 +485,12 @@ Section Uninstall
     Delete "$INSTDIR\python27.zip"
     
     ; Clean up NCC option
-    RMDir /r "$INSTDIR\NCC\"
+    RMDir /r "$INSTDIR\NCC\*"
     
     ; Clean up plugin options
-    Delete "$INSTDIR\plugins\data\*"
+	Delete "$INSTDIR\plugins\data\PyQt5\*"
+	Delete "$INSTDIR\plugins\data\PyQt5\"
+    Delete "$INSTDIR\plugins\data\"
     Delete "$INSTDIR\plugins\*.dll"
     Delete "$INSTDIR\plugins\*.py"
     
@@ -490,10 +501,15 @@ Section Uninstall
     ; Clean up translations option
     Delete "$INSTDIR\translations\*.qm"
     
-    ; Clean up tutorials option
-    Delete "$INSTDIR\tutorials\*.js"
-    Delete "$INSTDIR\tutorials\*.qml"
-    
+	
+	; Clean up Resources
+    Delete "$INSTDIR\resources\*"
+	
+	;Clean up Stylesheets
+	Delete "$INSTDIR\styles\*"
+
+
+	
     MessageBox MB_YESNO|MB_ICONQUESTION \
             "Do you want to remove all data stored in the installation directory (Settings, Downloads, Installed Mods, Profiles)?$\r$\n\
             This does NOT remove instances created in AppData and if you changed data directories through settings, those are also not removed "  IDYES true
@@ -518,6 +534,7 @@ Section Uninstall
 
     ; Remove remaining directories (IF they are empty)
     RMDir "$SMPROGRAMS\Mod Organizer"
+	RMDir "$INSTDIR\logs\"
     RMDir "$INSTDIR\logs\"
     RMDir "$INSTDIR\downloads\"
     RMDir "$INSTDIR\stylesheets\"
@@ -528,12 +545,15 @@ Section Uninstall
     RMDir "$INSTDIR\plugins\"
     RMDir "$INSTDIR\profiles\"
     RMDir "$INSTDIR\platforms\"
+	RMDir "$INSTDIR\QtQuick.2\"
     RMDir "$INSTDIR\license\"
     RMDir "$INSTDIR\DLLs\imageformats\"
     RMDir "$INSTDIR\DLLs\"
     RMDir "$INSTDIR\loot\"
     RMDir "$INSTDIR\translations\"
     RMDir "$INSTDIR\tutorials\"
+	RMDir "$INSTDIR\resources\"
+	RMDir "$INSTDIR\styles\"
     RMDir "$INSTDIR\"
 
 SectionEnd
