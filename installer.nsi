@@ -489,8 +489,7 @@ Section Uninstall
     
     ; Clean up plugin options
 	Delete "$INSTDIR\plugins\data\PyQt5\*"
-	Delete "$INSTDIR\plugins\data\PyQt5\"
-    Delete "$INSTDIR\plugins\data\"
+    Delete "$INSTDIR\plugins\data\*"
     Delete "$INSTDIR\plugins\*.dll"
     Delete "$INSTDIR\plugins\*.py"
     
@@ -512,13 +511,16 @@ Section Uninstall
 	
     MessageBox MB_YESNO|MB_ICONQUESTION \
             "Do you want to remove all data stored in the installation directory (Settings, Downloads, Installed Mods, Profiles)?$\r$\n\
-            This does NOT remove instances created in AppData and if you changed data directories through settings, those are also not removed "  IDYES true
+            This does NOT remove instances created in AppData and if you changed data directories through settings, those are also not removed "  IDYES true IDNO false
             true:
 				Delete "$INSTDIR\ModOrganizer.ini"
-				Delete "$INSTDIR\downloads\*"
+				RMDir /r "$INSTDIR\downloads\*"
 				RMDir /r "$INSTDIR\mods\*"
 				RMDir /r "$INSTDIR\overwrite\*"
 				RMDir /r "$INSTDIR\profiles\*"
+				RMDir /r "$INSTDIR\crashdumps\*"
+			false:
+				;Do nothing
     
     ReadRegStr $0 HKCU "Software\Classes\nxm\shell\open\command" ""
     ${UnStrLoc} $1 $0 $INSTDIR ">"
@@ -535,7 +537,6 @@ Section Uninstall
     ; Remove remaining directories (IF they are empty)
     RMDir "$SMPROGRAMS\Mod Organizer"
 	RMDir "$INSTDIR\logs\"
-    RMDir "$INSTDIR\logs\"
     RMDir "$INSTDIR\downloads\"
     RMDir "$INSTDIR\stylesheets\"
     RMDir "$INSTDIR\mods\"
