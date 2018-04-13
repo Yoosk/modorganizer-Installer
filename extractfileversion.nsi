@@ -1,4 +1,4 @@
-!define BASE "E:\MO2"
+!define BASE "E:\MO2-Release"
 
 !define File "${BASE}\install\bin\ModOrganizer.exe"
 

@@ -8,10 +8,10 @@ SetCompressorDictSize 64
 
 ; Define your application name
 !define APPNAME "Mod Organizer"
-!define BASE "E:\MO2"
+!define BASE "E:\MO2-Release"
 
-#!define DOWNLOAD_BASE "https://github.com/LePresidente/modorganizer/releases/download/v2.1.0b/"
-!define DOWNLOAD_BASE "https://github.com/LePresidente/modorganizer/releases/download/v2.1.0/"
+!define MAJOR_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.0/"
+!define DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.2/"
 
 !include 'LogicLib.nsh'
 !include 'Sections.nsh'
@@ -82,19 +82,19 @@ Function ConnectInternet
     ClearErrors
     Dialer::AttemptConnect
     IfErrors noie3
-    
+
     Pop $R0
     StrCmp $R0 "online" connected
       MessageBox MB_OK|MB_ICONSTOP "Cannot connect to the internet."
       Quit
-    
+
     noie3:
-  
+
     ; IE3 not installed
     MessageBox MB_OK|MB_ICONINFORMATION "Please connect to the internet now."
-    
+
     connected:
-  
+
   Pop $R0
 FunctionEnd
 
@@ -105,18 +105,22 @@ FunctionEnd
     Delete "$INSTDIR\helper.exe"
     Delete "$INSTDIR\usvfs_x64.dll"
     Delete "$INSTDIR\usvfs_x86.dll"
-    Delete "$INSTDIR\usvfs_proxy.exe"
+    Delete "$INSTDIR\usvfs_proxy_x86.exe"
+    Delete "$INSTDIR\usvfs_proxy_x64.exe"
     Delete "$INSTDIR\nxmhandler.exe"
     Delete "$INSTDIR\uibase.dll"
-	Delete "$INSTDIR\ssleay32.dll"
-	Delete "$INSTDIR\QtWebEngineProcess.exe"    
-	Delete "$INSTDIR\libeay32.dll"
-	Delete "$INSTDIR\boost_python-vc141-mt-x64-?_??.dll"
+    Delete "$INSTDIR\ssleay32.dll"
+	  Delete "$INSTDIR\QtWebEngineProcess.exe"
+	  Delete "$INSTDIR\libeay32.dll"
+	  Delete "$INSTDIR\boost_python-vc141-mt-x64-?_??.dll"
     Delete "$INSTDIR\loot\lootcli.exe"
     Delete "$INSTDIR\loot\loot_api.dll"
     Delete "$INSTDIR\platforms\qwindows.dll"
-	Delete "$INSTDIR\QtQuick.2\*"
+    Delete "$INSTDIR\styles\qwindowsvistastyle.dll"
+	  Delete "$INSTDIR\QtQuick.2\*"
     Delete "$INSTDIR\NCC\*"
+    Delete "$INSTDIR\translations\*"
+    Delete "$INSTDIR\plugins\bsa_extractor.dll"
     Delete "$INSTDIR\plugins\installer_bundle.dll"
     Delete "$INSTDIR\plugins\diagnose_basic.dll"
     Delete "$INSTDIR\plugins\installer_manual.dll"
@@ -125,15 +129,20 @@ FunctionEnd
     Delete "$INSTDIR\plugins\installer_fomod.dll"
     Delete "$INSTDIR\plugins\installer_NCC.dll"
     Delete "$INSTDIR\plugins\plugin_python.dll"
+    Delete "$INSTDIR\plugins\inibakery.dll"
     Delete "$INSTDIR\plugins\ini_editor.dll"
     Delete "$INSTDIR\plugins\check_FNIS.dll"
     Delete "$INSTDIR\plugins\preview_base.dll"
     Delete "$INSTDIR\plugins\game_oblivion.dll"
+    Delete "$INSTDIR\plugins\game_morrowind.dll"
     Delete "$INSTDIR\plugins\game_fallout3.dll"
     Delete "$INSTDIR\plugins\game_fallout4.dll"
+    Delete "$INSTDIR\plugins\game_fallout4vr.dll"
     Delete "$INSTDIR\plugins\game_falloutNV.dll"
     Delete "$INSTDIR\plugins\game_skyrim.dll"
-	Delete "$INSTDIR\plugins\game_skyrimse.dll"
+    Delete "$INSTDIR\plugins\game_skyrimvr.dll"
+	  Delete "$INSTDIR\plugins\game_skyrimse.dll"
+    Delete "$INSTDIR\plugins\game_ttw.dll"
     Delete "$INSTDIR\plugins\pyCfg.py"
     Delete "$INSTDIR\plugins\data\pythonrunner.dll"
     Delete "$INSTDIR\plugins\data\sip.pyd"
@@ -169,7 +178,8 @@ Section "!Mod Organizer" Section1
     File "${BASE}\install\bin\helper.exe"
     File "${BASE}\install\bin\usvfs_x64.dll"
     File "${BASE}\install\bin\usvfs_x86.dll"
-    File "${BASE}\install\bin\usvfs_proxy.exe"
+    File "${BASE}\install\bin\usvfs_proxy_x86.exe"
+    File "${BASE}\install\bin\usvfs_proxy_x64.exe"
     File "${BASE}\install\bin\nxmhandler.exe"
     File "${BASE}\install\bin\uibase.dll"
 	File "${BASE}\install\bin\QtWebEngineProcess.exe"
@@ -213,7 +223,7 @@ Section "!Mod Organizer" Section1
 	${AndIf} $3 != "1"
 ;    IntCmp $1 1 vcredist_installed
         StrCpy $2 "$INSTDIR\VC_redist.x64.exe"
-        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${DOWNLOAD_BASE}/VC_redist.x64.exe" "$2"
+        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${MAJOR_DOWNLOAD_BASE}/VC_redist.x64.exe" "$2"
         Pop $0
 
         StrCmp $0 OK success
@@ -224,7 +234,7 @@ Section "!Mod Organizer" Section1
             Exec "$INSTDIR\VC_redist.x64.exe /install /passive /norestart"
             Delete "$INSTDIR\VC_redist.x64.exe"
    ${EndIf}
-   
+
     ReadRegStr $2 HKLM "SOFTWARE\WOW6432Node\Microsoft\DevDiv\vc\Servicing\14.0\RuntimeMinimum" "Version"
 	ReadRegStr $3 HKLM "SOFTWARE\WOW6432Node\Microsoft\DevDiv\vc\Servicing\14.0\RuntimeMinimum" "Installed"
 	${VersionCompare} $2 "14.12.0" $R0
@@ -232,7 +242,7 @@ Section "!Mod Organizer" Section1
 	${AndIf} $3 != "1"
 ;    IntCmp $1 1 vcredist_installed
         StrCpy $2 "$INSTDIR\VC_redist.x86.exe"
-        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${DOWNLOAD_BASE}/VC_redist.x86.exe" "$2"
+        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${MAJOR_DOWNLOAD_BASE}/VC_redist.x86.exe" "$2"
         Pop $0
 
         StrCmp $0 OK success1
@@ -243,17 +253,17 @@ Section "!Mod Organizer" Section1
             Exec "$INSTDIR\vcredist.x86.exe /install /passive /norestart"
             Delete "$INSTDIR\VC_redist.x86.exe"
    ${EndIf}
-   
-   
+
+
 
 SectionEnd
 
 Section "Qt DLLs" Section2
     SetOutPath "$INSTDIR\dlls\"
     StrCpy $2 "$INSTDIR\qt.7z"
-    inetc::get /CAPTION "Qt" "${DOWNLOAD_BASE}/Qt5.10.0.7z" "$2"
+    inetc::get /CAPTION "Qt" "${MAJOR_DOWNLOAD_BASE}/Qt5.10.0.7z" "$2"
     Pop $0
-    
+
     StrCmp $0 OK success
         SetDetailsView show
         DetailPrint "download failed: $0"
@@ -261,7 +271,7 @@ Section "Qt DLLs" Section2
     success:
         Nsis7z::ExtractWithDetails "$INSTDIR\qt.7z" "Installing %s..."
         Delete "$INSTDIR\qt.7z"
-    
+
     File "${BASE}\install\bin\DLLs\dlls.manifest"
 SectionEnd
 
@@ -288,7 +298,7 @@ SectionGroup "Plugins" PluginsGroup
         StrCpy $2 "$INSTDIR\ncc.7z"
         inetc::get /CAPTION "NCC" "${DOWNLOAD_BASE}/ncc.7z" "$2"
         Pop $0
-        
+
         StrCmp $0 OK success
             SetDetailsView show
             DetailPrint "download failed: $0"
@@ -303,7 +313,7 @@ SectionGroup "Plugins" PluginsGroup
         StrCpy $2 "$INSTDIR\python.7z"
         inetc::get /CAPTION "Python" "${DOWNLOAD_BASE}/python.7z" "$2"
         Pop $0
-        
+
         StrCmp $0 OK success
             SetDetailsView show
             DetailPrint "download failed: $0"
@@ -335,13 +345,25 @@ SectionGroup "Plugins" PluginsGroup
         SetOutPath "$INSTDIR\plugins\"
         File "${BASE}\install\bin\plugins\game_oblivion.dll"
     SectionEnd
+    Section "Morrowind Support" PluginGameMorrowind
+        SetOutPath "$INSTDIR\plugins\"
+        File "${BASE}\install\bin\plugins\game_morrowind.dll"
+    SectionEnd
     Section "Fallout 3 Support" PluginGameFallout3
         SetOutPath "$INSTDIR\plugins\"
         File "${BASE}\install\bin\plugins\game_fallout3.dll"
     SectionEnd
+    Section "TTW Support" PluginGamettw
+        SetOutPath "$INSTDIR\plugins\"
+        File "${BASE}\install\bin\plugins\game_ttw.dll"
+    SectionEnd
     Section "Fallout 4 Support" PluginGameFallout4
         SetOutPath "$INSTDIR\plugins\"
         File "${BASE}\install\bin\plugins\game_fallout4.dll"
+    SectionEnd
+    Section "Fallout 4 VR Support" PluginGameFallout4vr
+        SetOutPath "$INSTDIR\plugins\"
+        File "${BASE}\install\bin\plugins\game_fallout4vr.dll"
     SectionEnd
     Section "New Vegas Support" PluginGameNewVegas
         SetOutPath "$INSTDIR\plugins\"
@@ -350,6 +372,10 @@ SectionGroup "Plugins" PluginsGroup
     Section "Skyrim Support" PluginGameSkyrim
         SetOutPath "$INSTDIR\plugins\"
         File "${BASE}\install\bin\plugins\game_skyrim.dll"
+    SectionEnd
+    Section "SkyrimVR Support" PluginGameSkyrimvr
+        SetOutPath "$INSTDIR\plugins\"
+        File "${BASE}\install\bin\plugins\game_skyrimvr.dll"
     SectionEnd
 	Section "Skyrimse Support" PluginGameSkyrimse
 	    SetOutPath "$INSTDIR\plugins\"
@@ -362,7 +388,7 @@ Section "Translations" Section5
     StrCpy $2 "$INSTDIR\translations.7z"
     inetc::get /CAPTION "Translations" "${DOWNLOAD_BASE}/translations.7z" "$2"
     Pop $0
-    
+
     StrCmp $0 OK success
         SetDetailsView show
         DetailPrint "download failed: $0"
@@ -380,10 +406,10 @@ SectionEnd
 
 Section "Stylesheets" Section7
     SetOverwrite on
-    
+
     SetOutPath "$INSTDIR\stylesheets\"
-    File "${BASE}\install\bin\stylesheets\dark.qss" 
-    File "${BASE}\install\bin\stylesheets\dracula.qss" 
+    File "${BASE}\install\bin\stylesheets\dark.qss"
+    File "${BASE}\install\bin\stylesheets\dracula.qss"
 SectionEnd
 
 Section /o "Handle Nexus Links" Section8
@@ -435,10 +461,14 @@ FunctionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginConfigurator} "More sophisticated ini editor. Requires the python plugin."
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginFilePreview} "Provides File Preview capabilities for $\"simple$\" file types (images, text files)."
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameOblivion} "Support for Oblivion."
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameMorrowind} "Support for Morrowind."
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameFallout3} "Support for Fallout 3."
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginGamettw} "Support for TTW."
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameFallout4} "Support for Fallout 4."
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameFallout4vr} "Support for Fallout 4 VR."
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameNewVegas} "Support for Fallout New Vegas."
     !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameSkyrim} "Support for Skyrim."
+    !insertmacro MUI_DESCRIPTION_TEXT ${PluginGameSkyrimvr} "Support for Skyrim VR."
 	!insertmacro MUI_DESCRIPTION_TEXT ${PluginGameSkyrimse} "Support for SkyrimSE."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -461,7 +491,7 @@ Section Uninstall
 
     ; Clean up cache of integrated browser
     RMDir /r "$INSTDIR\webcache"
-    
+
     ; Clean up generated logs and dumps
     Delete "$INSTDIR\logs\*"
     Delete "$INSTDIR\ModOrganizer.exe.dmp"
@@ -469,46 +499,46 @@ Section Uninstall
 
     ; Clean up qt dll option
     Delete "$INSTDIR\DLLs\dlls.manifest"
-	
+
 	; Clean up License
     Delete "$INSTDIR\license\*"
-	
+
 	; Clean up DLL option
 	Delete "$INSTDIR\DLLs\imageformats\*"
     Delete "$INSTDIR\DLLs\*"
 
     ; Clean up stylesheet option
     Delete "$INSTDIR\stylesheets\*.qss"
-    
+
     ; Clean up python option
     Delete "$INSTDIR\python27.dll"
     Delete "$INSTDIR\python27.zip"
-    
+
     ; Clean up NCC option
     RMDir /r "$INSTDIR\NCC\*"
-    
+
     ; Clean up plugin options
 	Delete "$INSTDIR\plugins\data\PyQt5\*"
     Delete "$INSTDIR\plugins\data\*"
     Delete "$INSTDIR\plugins\*.dll"
     Delete "$INSTDIR\plugins\*.py"
-    
+
     ; Clean up tutorials option
     Delete "$INSTDIR\tutorials\*.js"
     Delete "$INSTDIR\tutorials\*.qml"
 
     ; Clean up translations option
     Delete "$INSTDIR\translations\*.qm"
-    
-	
+
+
 	; Clean up Resources
     Delete "$INSTDIR\resources\*"
-	
+
 	;Clean up Stylesheets
 	Delete "$INSTDIR\styles\*"
 
 
-	
+
     MessageBox MB_YESNO|MB_ICONQUESTION \
             "Do you want to remove all data stored in the installation directory (Settings, Downloads, Installed Mods, Profiles)?$\r$\n\
             This does NOT remove instances created in AppData and if you changed data directories through settings, those are also not removed "  IDYES true IDNO false
@@ -521,7 +551,7 @@ Section Uninstall
 				RMDir /r "$INSTDIR\crashdumps\*"
 			false:
 				;Do nothing
-    
+
     ReadRegStr $0 HKCU "Software\Classes\nxm\shell\open\command" ""
     ${UnStrLoc} $1 $0 $INSTDIR ">"
     ${If} $1 == 0
