@@ -10,7 +10,7 @@ SetCompressorDictSize 64
 !define APPNAME "Mod Organizer"
 !define BASE "E:\MO2-Release"
 
-!define MAJOR_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.0/"
+!define MAJOR_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.3/"
 !define DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.2/"
 
 !include 'LogicLib.nsh'
@@ -263,7 +263,7 @@ SectionEnd
 Section "Qt DLLs" Section2
     SetOutPath "$INSTDIR\dlls\"
     StrCpy $2 "$INSTDIR\qt.7z"
-    inetc::get /CAPTION "Qt" "${MAJOR_DOWNLOAD_BASE}/Qt5.10.0.7z" "$2"
+    inetc::get /CAPTION "Qt" "${MAJOR_DOWNLOAD_BASE}/Qt5.10.0_p1.7z" "$2"
     Pop $0
 
     StrCmp $0 OK success
