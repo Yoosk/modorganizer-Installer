@@ -49,7 +49,7 @@ ${UnStrLoc}
 
 !define MUI_ICON "mo_icon.ico"
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "installer_data\license\gpl-3.0.txt"
+!insertmacro MUI_PAGE_LICENSE "${BASE}\install\licenses\GPL-v3.0.txt"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -195,8 +195,8 @@ Section "!Mod Organizer" Section1
 	File "${BASE}\install\bin\plugins\bsa_extractor.dll"
 	File "${BASE}\install\bin\plugins\inibakery.dll"
     CreateDirectory "$INSTDIR\logs"
-    SetOutPath "$INSTDIR\license\"
-    File "installer_data\license\*.txt"
+    SetOutPath "$INSTDIR\licenses\"
+    File "${BASE}\install\licenses\*.txt"
     SetOutPath "$INSTDIR\platforms\"
     File "${BASE}\install\bin\platforms\qwindows.dll"
 	SetOutPath "$INSTDIR\QtQuick.2"
@@ -501,7 +501,7 @@ Section Uninstall
     Delete "$INSTDIR\DLLs\dlls.manifest"
 
 	; Clean up License
-    Delete "$INSTDIR\license\*"
+    Delete "$INSTDIR\licenses\*"
 
 	; Clean up DLL option
 	Delete "$INSTDIR\DLLs\imageformats\*"
@@ -577,7 +577,7 @@ Section Uninstall
     RMDir "$INSTDIR\profiles\"
     RMDir "$INSTDIR\platforms\"
 	RMDir "$INSTDIR\QtQuick.2\"
-    RMDir "$INSTDIR\license\"
+    RMDir "$INSTDIR\licenses\"
     RMDir "$INSTDIR\DLLs\imageformats\"
     RMDir "$INSTDIR\DLLs\"
     RMDir "$INSTDIR\loot\"
