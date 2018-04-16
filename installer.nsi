@@ -206,6 +206,8 @@ Section "!Mod Organizer" Section1
     SetOutPath "$INSTDIR\DLLs\"
     File "${BASE}\install\bin\DLLs\7z.dll"
     File "${BASE}\install\bin\DLLs\archive.dll"
+    File "${BASE}\install\bin\DLLs\libeay32.dll"
+    File "${BASE}\install\bin\DLLs\ssleay32.dll"
 	File "${BASE}\install\bin\DLLs\liblz4.dll"
 	SetOutPath "$INSTDIR\resources\"
 	File "${BASE}\install\bin\resources\icudtl.dat"
