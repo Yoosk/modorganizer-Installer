@@ -412,6 +412,8 @@ Section "Stylesheets" Section7
     SetOutPath "$INSTDIR\stylesheets\"
     File "${BASE}\install\bin\stylesheets\dark.qss"
     File "${BASE}\install\bin\stylesheets\dracula.qss"
+	File "${BASE}\install\bin\stylesheets\Paper Dark by 6788-00.qss"
+    File "${BASE}\install\bin\stylesheets\Paper Light by 6788-00.qss"
 SectionEnd
 
 Section /o "Handle Nexus Links" Section8
