@@ -10,8 +10,11 @@ SetCompressorDictSize 64
 !define APPNAME "Mod Organizer"
 !define BASE "E:\MO2-Release"
 
-!define MAJOR_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.3/"
-!define DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.2/"
+!define TRANSLATIONS_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.3/"
+!define QT_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.3/"
+!define NCC_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.3/"
+!define PYTHON_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.3/"
+!define VC_DOWNLOAD_BASE "https://github.com/Modorganizer2/modorganizer/releases/download/v2.1.0/"
 
 !include 'LogicLib.nsh'
 !include 'Sections.nsh'
@@ -49,7 +52,7 @@ ${UnStrLoc}
 
 !define MUI_ICON "mo_icon.ico"
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "${BASE}\install\licenses\GPL-v3.0.txt"
+!insertmacro MUI_PAGE_LICENSE "${BASE}\install\bin\licenses\GPL-v3.0.txt"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -112,7 +115,8 @@ FunctionEnd
     Delete "$INSTDIR\ssleay32.dll"
 	  Delete "$INSTDIR\QtWebEngineProcess.exe"
 	  Delete "$INSTDIR\libeay32.dll"
-	  Delete "$INSTDIR\boost_python-vc141-mt-x64-?_??.dll"
+	  Delete "$INSTDIR\boost_python27-vc141-mt-x64-?_??.dll"
+    Delete "$INSTDIR\boost_python-vc141-mt-x64-?_??.dll"
     Delete "$INSTDIR\loot\lootcli.exe"
     Delete "$INSTDIR\loot\loot_api.dll"
     Delete "$INSTDIR\platforms\qwindows.dll"
@@ -185,7 +189,7 @@ Section "!Mod Organizer" Section1
 	File "${BASE}\install\bin\QtWebEngineProcess.exe"
 	File "${BASE}\install\bin\libeay32.dll"
 	File "${BASE}\install\bin\ssleay32.dll"
-	File "${BASE}\install\bin\boost_python-vc141-mt-x64-?_??.dll"
+	File "${BASE}\install\bin\boost_python27-vc141-mt-x64-?_??.dll"
     SetOutPath "$INSTDIR\loot\"
     File "${BASE}\install\bin\loot\lootcli.exe"
     File "${BASE}\install\bin\loot\loot_api.dll"
@@ -196,7 +200,7 @@ Section "!Mod Organizer" Section1
 	File "${BASE}\install\bin\plugins\inibakery.dll"
     CreateDirectory "$INSTDIR\logs"
     SetOutPath "$INSTDIR\licenses\"
-    File "${BASE}\install\licenses\*.txt"
+    File "${BASE}\install\bin\licenses\*.txt"
     SetOutPath "$INSTDIR\platforms\"
     File "${BASE}\install\bin\platforms\qwindows.dll"
 	SetOutPath "$INSTDIR\QtQuick.2"
@@ -225,7 +229,7 @@ Section "!Mod Organizer" Section1
 	${AndIf} $3 != "1"
 ;    IntCmp $1 1 vcredist_installed
         StrCpy $2 "$INSTDIR\VC_redist.x64.exe"
-        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${MAJOR_DOWNLOAD_BASE}/VC_redist.x64.exe" "$2"
+        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${VC_DOWNLOAD_BASE}/VC_redist.x64.exe" "$2"
         Pop $0
 
         StrCmp $0 OK success
@@ -244,7 +248,7 @@ Section "!Mod Organizer" Section1
 	${AndIf} $3 != "1"
 ;    IntCmp $1 1 vcredist_installed
         StrCpy $2 "$INSTDIR\VC_redist.x86.exe"
-        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${MAJOR_DOWNLOAD_BASE}/VC_redist.x86.exe" "$2"
+        inetc::get /CAPTION "Microsoft Visual C++ Runtime" "${VC_DOWNLOAD_BASE}/VC_redist.x86.exe" "$2"
         Pop $0
 
         StrCmp $0 OK success1
@@ -263,7 +267,7 @@ SectionEnd
 Section "Qt DLLs" Section2
     SetOutPath "$INSTDIR\dlls\"
     StrCpy $2 "$INSTDIR\qt.7z"
-    inetc::get /CAPTION "Qt" "${MAJOR_DOWNLOAD_BASE}/Qt5.10.0_p1.7z" "$2"
+    inetc::get /CAPTION "Qt" "${QT_DOWNLOAD_BASE}/Qt5.10.0_p1.7z" "$2"
     Pop $0
 
     StrCmp $0 OK success
@@ -298,7 +302,7 @@ SectionGroup "Plugins" PluginsGroup
     Section "NCC Installer" PluginsInstallerNCC
         SetOutPath "$INSTDIR\"
         StrCpy $2 "$INSTDIR\ncc.7z"
-        inetc::get /CAPTION "NCC" "${DOWNLOAD_BASE}/ncc.7z" "$2"
+        inetc::get /CAPTION "NCC" "${NCC_DOWNLOAD_BASE}/ncc.7z" "$2"
         Pop $0
 
         StrCmp $0 OK success
@@ -313,7 +317,7 @@ SectionGroup "Plugins" PluginsGroup
     Section "Python Support" PluginPython
         SetOutPath "$INSTDIR\"
         StrCpy $2 "$INSTDIR\python.7z"
-        inetc::get /CAPTION "Python" "${DOWNLOAD_BASE}/python.7z" "$2"
+        inetc::get /CAPTION "Python" "${PYTHON_DOWNLOAD_BASE}/python.7z" "$2"
         Pop $0
 
         StrCmp $0 OK success
@@ -388,7 +392,7 @@ SectionGroupEnd
 Section "Translations" Section5
     SetOutPath "$INSTDIR\"
     StrCpy $2 "$INSTDIR\translations.7z"
-    inetc::get /CAPTION "Translations" "${DOWNLOAD_BASE}/translations.7z" "$2"
+    inetc::get /CAPTION "Translations" "${TRANSLATIONS_DOWNLOAD_BASE}/translations.7z" "$2"
     Pop $0
 
     StrCmp $0 OK success
