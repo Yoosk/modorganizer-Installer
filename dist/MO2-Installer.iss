@@ -219,6 +219,11 @@ Type: filesandordirs; Name: "{app}/usvfs_*"
 [Dirs]
 Name: "{app}\Logs\logs"; Components: core
 
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}/pythoncore"
+Type: filesandordirs; Name: "{app}/plugins"
+Type: filesandordirs; Name: "{app}/webcache"
+
 [Code]
 const
 //Define global constants
