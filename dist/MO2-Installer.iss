@@ -10,6 +10,8 @@
 AppId={{68ADD8CF-0653-48BD-8B14-26E43B93933C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
+;We should only allow installing on 64bit systems
+ArchitecturesAllowed=x64
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
