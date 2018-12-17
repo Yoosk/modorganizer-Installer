@@ -17,6 +17,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
+AppendDefaultDirName=no
 DefaultDirName={sd}\Modding\MO2
 DirExistsWarning=no
 DefaultGroupName={#MyAppName}
