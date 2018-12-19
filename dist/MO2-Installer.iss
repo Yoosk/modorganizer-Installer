@@ -28,6 +28,7 @@ LicenseFile=..\..\..\..\install\bin\licenses\GPL-v3.0.txt
 OutputDir={#MO2Folder}
 OutputBaseFilename=Mod.Organizer-{#MyAppVersion}
 SetupIconFile=.\Images\mo_icon.ico
+WizardSmallImageFile=.\Images\WizModernSmallImage.bmp
 Compression=lzma
 SolidCompression=yes
 Uninstallable=yes
