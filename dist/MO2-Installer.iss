@@ -2,6 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #include "MO2-Config.iss"
+#include "Scripts/innodependencyinstaller/innodependencyinstaller.iss"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -12,6 +13,7 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;We should only allow installing on 64bit systems
 ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
@@ -34,7 +36,7 @@ UninstallDisplayIcon={app}\ModOrganizer.exe
 UninstallDisplayName=Mod Organizer 2
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
