@@ -52,7 +52,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 
 [Types]
-Name: "Full"; Description: "Recommened Install"
+Name: "Full"; Description: "Recommended Install"
 Name: "Custom"; Description: "Expert Install"; Flags: iscustom
 
 [Components]
