@@ -198,7 +198,7 @@ Source: "..\..\..\..\install\bin\stylesheets\*"; DestDir: "{app}\stylesheets"; F
 [Registry]
 Root: "HKCU"; Subkey: "Software\Classes\nxm"; ValueType: string; ValueData: "URL:NXM Protocol"; Flags: createvalueifdoesntexist; Components: Nexus; 
 Root: "HKCU"; Subkey: "Software\Classes\nxm"; ValueType: string; ValueName: "URL Protocol"; Flags: createvalueifdoesntexist; Components: Nexus; 
-Root: "HKCU"; Subkey: "Software\Classes\nxm\shell\open\command"; ValueType: string; ValueData: """{app}\nxmhandler.exe"" ""%1"""; Flags: createvalueifdoesntexist deletevalue uninsclearvalue; Components: Nexus; AfterInstall: WriteNexusHandlerINI('{localappdata}\ModOrganizer\nxmhandler.ini', '{app}\{#MyAppExeName}')
+Root: "HKCU"; Subkey: "Software\Classes\nxm\shell\open\command"; ValueType: string; ValueData: """{app}\nxmhandler.exe"" ""%1"""; Flags: createvalueifdoesntexist deletevalue uninsclearvalue; Components: Nexus; AfterInstall: WriteNexusHandlerINI('{localappdata}\ModOrganizer\', 'nxmhandler.ini', '{app}\{#MyAppExeName}')
 
 [InstallDelete]
 Type: filesandordirs; Name: "{app}/DLLS"
@@ -313,23 +313,27 @@ begin
   end
 end;
 
-procedure WriteNexusHandlerINI(const Filename: String; const Handler: String);
+procedure WriteNexusHandlerINI(const Filepath: String; const Filename: String; const Handler: String);
 var
-  Written: Boolean;
-  Output, FixedHandler: String;
+  Success: Boolean;
+  ExpandedStr, OutputStr: String;
 begin
-  FixedHandler := ExpandConstant(Handler);
-  StringChangeEx(FixedHandler, '\', '\\', True);
-  Output :=          '[handlers]'                          + #10#13;
-  Output := Output + 'size=1'                              + #10#13;
-  Output := Output + '1\games='                            + #10#13;
-  Output := Output + '1\executable="' + FixedHandler + '"' + #10#13;
+  ExpandedStr := ExpandConstant(Handler);
+  StringChangeEx(ExpandedStr, '\', '\\', True);
+  OutputStr :=             '[handlers]'                         + #10#13;
+  OutputStr := OutputStr + 'size=1'                             + #10#13;
+  OutputStr := OutputStr + '1\games='                           + #10#13;
+  OutputStr := OutputStr + '1\executable="' + ExpandedStr + '"' + #10#13;
   if IsComponentSelected('Nexus') then
   begin
-    Written := SaveStringToFile(ExpandConstant(Filename), Output, False);
-    if not Written then
-    begin
-      MsgBox('Unable to write ' + ExpandConstant(Filename), mbError, MB_OK);
-    end
+    ExpandedStr := ExpandConstant(Filepath)
+    Success := DirExists(ExpandedStr) or CreateDir(ExpandedStr)
+    if not Success then
+      MsgBox('Unable to create directory ' + ExpandedStr, mbError, MB_OK);
+        
+    ExpandedStr := ExpandConstant(Filepath) + ExpandConstant(Filename)
+    Success := SaveStringToFile(ExpandedStr, OutputStr, False);
+    if not Success then
+      MsgBox('Unable to write ' + ExpandedStr, mbError, MB_OK);
   end
 end;
