@@ -100,8 +100,8 @@ Source: "..\..\..\..\install\bin\usvfs_proxy_x64.exe"; DestDir: "{app}"; Flags: 
 Source: "..\..\..\..\install\bin\usvfs_proxy_x86.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\usvfs_x64.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\usvfs_x86.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
+Source: "..\..\..\..\install\bin\loot\loot.dll"; DestDir: "{app}\loot"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\loot\lootcli.exe"; DestDir: "{app}\loot"; Flags: ignoreversion; Components: core
-Source: "..\..\..\..\install\bin\loot\loot_api.dll"; DestDir: "{app}\loot"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\plugins\bsa_extractor.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\plugins\diagnose_basic.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\plugins\inibakery.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: core
