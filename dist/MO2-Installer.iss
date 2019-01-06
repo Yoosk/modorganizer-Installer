@@ -88,7 +88,7 @@ Name: "Nexus"; Description: "Handle Nexus Links"
 
 [Files]
 ;Core Files
-Source: "..\..\..\..\install\bin\boost_python37-vc141-mt-x64-1_68.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
+Source: "..\..\..\..\install\bin\boost_python37-vc141-mt-x64-1_69.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\helper.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\libeay32.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\ModOrganizer.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: core
@@ -196,8 +196,8 @@ Source: "..\..\..\..\install\bin\tutorials\*"; DestDir: "{app}\tutorials"; Flags
 Source: "..\..\..\..\install\bin\stylesheets\*"; DestDir: "{app}\stylesheets"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Stylesheets
 
 [Registry]
-Root: "HKCU"; Subkey: "Software\Classes\nxm"; ValueType: string; ValueData: "URL:NXM Protocol"; Flags: createvalueifdoesntexist; Components: Nexus; 
-Root: "HKCU"; Subkey: "Software\Classes\nxm"; ValueType: string; ValueName: "URL Protocol"; Flags: createvalueifdoesntexist; Components: Nexus; 
+Root: "HKCU"; Subkey: "Software\Classes\nxm"; ValueType: string; ValueData: "URL:NXM Protocol"; Flags: createvalueifdoesntexist; Components: Nexus;
+Root: "HKCU"; Subkey: "Software\Classes\nxm"; ValueType: string; ValueName: "URL Protocol"; Flags: createvalueifdoesntexist; Components: Nexus;
 Root: "HKCU"; Subkey: "Software\Classes\nxm\shell\open\command"; ValueType: string; ValueData: """{app}\nxmhandler.exe"" ""%1"""; Flags: createvalueifdoesntexist deletevalue uninsclearvalue; Components: Nexus; AfterInstall: WriteNexusHandlerINI('{localappdata}\ModOrganizer\', 'nxmhandler.ini', '{app}\{#MyAppExeName}')
 
 [InstallDelete]
@@ -237,7 +237,7 @@ Type: filesandordirs; Name: "{app}/webcache"
 const
 //Define global constants
   CompIndexFNISPatches = 11;
-  CompIndexFNISTool = 12; 
+  CompIndexFNISTool = 12;
   CompIndexConfigurator = 13;
 
 var
@@ -256,7 +256,7 @@ begin
           CheckItem(CompIndexFNISPatches, coUncheck);
           CheckItem(CompIndexFNISTool, coUncheck);
           CheckItem(CompIndexConfigurator, coUncheck);
-        end; 
+        end;
       ItemEnabled[CompIndexConfigurator] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISPatches] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISTool] := IsComponentSelected('Plugins\Python');
@@ -330,7 +330,7 @@ begin
     Success := DirExists(ExpandedStr) or CreateDir(ExpandedStr)
     if not Success then
       MsgBox('Unable to create directory ' + ExpandedStr, mbError, MB_OK);
-        
+
     ExpandedStr := ExpandConstant(Filepath) + ExpandConstant(Filename)
     Success := SaveStringToFile(ExpandedStr, OutputStr, False);
     if not Success then
