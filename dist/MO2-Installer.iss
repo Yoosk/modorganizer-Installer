@@ -80,7 +80,8 @@ Name: "Plugins\Fallout4VR"; Description: "Fallout 4 VR Support"; Types: Custom F
 Name: "Plugins\NV"; Description: "New Vegas Support"; Types: Custom Full
 Name: "Plugins\Skyrim"; Description: "Skyrim Support"; Types: Custom Full
 Name: "Plugins\SkyrimVR"; Description: "SkyrimVR Support"; Types: Custom Full
-Name: "Plugins\SkyrimSE"; Description: "Skyrimse Support"; Types: Custom Full
+Name: "Plugins\SkyrimSE"; Description: "SkyrimSE Support"; Types: Custom Full
+Name: "Plugins\Enderal"; Description: "Enderal Support"; Types: Custom Full
 Name: "Translations"; Description: "Translations"; Types: Custom Full
 Name: "Tutorials"; Description: "Tutorials"; Types: Custom Full
 Name: "Stylesheets"; Description: "Stylesheets"; Types: Custom Full
@@ -181,8 +182,10 @@ Source: "..\..\..\..\install\bin\plugins\game_falloutNV.dll"; DestDir: "{app}\pl
 Source: "..\..\..\..\install\bin\plugins\game_skyrim.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Skyrim
 ;SkyrimVR Support
 Source: "..\..\..\..\install\bin\plugins\game_skyrimvr.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SkyrimVR
-;Skyrimse Support
+;SkyrimSE Support
 Source: "..\..\..\..\install\bin\plugins\game_skyrimse.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SkyrimSE
+;Enderal Support
+Source: "..\..\..\..\install\bin\plugins\game_enderal.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Enderal
 ;FNIS Patches
 Source: "..\..\..\..\install\bin\plugins\FNISPatches.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISPatches
 ;FNIS Tool
