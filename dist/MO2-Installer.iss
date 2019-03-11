@@ -58,6 +58,7 @@ Name: "Custom"; Description: "Expert Install"; Flags: iscustom
 [Components]
 Name: "core"; Description: "Core Application"; Types: Custom Full; Flags: fixed
 Name: "QTDLL"; Description: "Qt DLL's"; Types: Full Custom; Flags: fixed
+Name: "FileExplorer"; Description: "Explorer++"; Types: Full Custom;
 Name: "Plugins"; Description: "MO2 Plugins"; Types: Full Custom
 Name: "Plugins\Python"; Description: "Python Support"; Types: Custom Full
 Name: "Plugins\Manual"; Description: "Manual Installer"; Types: Custom Full
@@ -140,6 +141,8 @@ Source: "..\..\..\..\install\bin\dlls\dlls.manifest"; DestDir: "{app}\dlls"; Fla
 Source: "..\..\..\..\install\bin\dlls\libEGL.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\libGLESV2.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\opengl32sw.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
+;Explorer++
+Source: "..\..\..\..\install\bin\explorer++\*"; DestDir: "{app}\explorer++"; Flags: ignoreversion; Components: FileExplorer
 ;Start Plugin Groups
 ;Manual Installer
 Source: "..\..\..\..\install\bin\plugins\installer_manual.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Manual
@@ -206,6 +209,7 @@ Root: "HKCU"; Subkey: "Software\Classes\nxm\shell\open\command"; ValueType: stri
 
 [InstallDelete]
 Type: filesandordirs; Name: "{app}/DLLS"
+Type: filesandordirs; Name: "{app}/explorer++"
 Type: filesandordirs; Name: "{app}/licenses"
 Type: filesandordirs; Name: "{app}/loot"
 Type: filesandordirs; Name: "{app}/NCC"
