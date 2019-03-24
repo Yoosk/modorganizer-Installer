@@ -55,6 +55,7 @@ Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Descr
 Name: "Full"; Description: "Recommended Install"
 Name: "Custom"; Description: "Expert Install"; Flags: iscustom
 
+; NOTE:  Order of the components matters!  See proc UpdateComponents below.
 [Components]
 Name: "core"; Description: "Core Application"; Types: Custom Full; Flags: fixed
 Name: "QTDLL"; Description: "Qt DLL's"; Types: Full Custom; Flags: fixed
@@ -66,11 +67,12 @@ Name: "Plugins\Quick"; Description: "Quick Installer"; Types: Custom Full
 Name: "Plugins\Bain"; Description: "BAIN Installer"; Types: Custom Full
 Name: "Plugins\FOMOD"; Description: "FOMOD Installer"; Types: Custom Full
 Name: "Plugins\NCC"; Description: "NCC Installer"; Types: Custom Full
-Name: "Plugins\LegacyINI"; Description: "Legacy ini editor"; Types: Custom Full
+Name: "Plugins\LegacyINI"; Description: "Legacy INI editor"; Types: Custom Full
 Name: "Plugins\FNISCheck"; Description: "FNIS Checker"; Types: Custom Full
 Name: "Plugins\FNISPatches"; Description: "FNIS Patches"; Types: Custom Full
 Name: "Plugins\FNISTool"; Description: "FNIS Tool"; Types: Custom Full
 Name: "Plugins\Configurator"; Description: "Configurator"; Types: Custom Full
+Name: "Plugins\SEPluginChecker"; Description: "Script Extender Plugin Checker"; Types: Custom Full
 Name: "Plugins\File"; Description: "File Preview"; Types: Custom Full
 Name: "Plugins\Oblivion"; Description: "Oblivion Support"; Types: Custom Full
 Name: "Plugins\Morrowind"; Description: "Morrowind Support"; Types: Custom Full
@@ -194,6 +196,8 @@ Source: "..\..\..\..\install\bin\plugins\game_enderal.dll"; DestDir: "{app}\plug
 Source: "..\..\..\..\install\bin\plugins\FNISPatches.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISPatches
 ;FNIS Tool
 Source: "..\..\..\..\install\bin\plugins\FNISTool.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
+;Script Extender Plugin Checker
+Source: "..\..\..\..\install\bin\plugins\ScriptExtenderPluginChecker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SEPluginChecker
 ;End Plugin Groups
 ;Translations
 Source: "..\..\..\..\install\bin\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Translations
@@ -244,9 +248,10 @@ Type: filesandordirs; Name: "{app}/webcache"
 [Code]
 const
 //Define global constants
-  CompIndexFNISPatches = 11;
-  CompIndexFNISTool = 12;
-  CompIndexConfigurator = 13;
+  CompIndexFNISPatches = 12;
+  CompIndexFNISTool = 13;
+  CompIndexConfigurator = 14;
+  CompIndexSEPluginChecker = 15;
 
 var
 //Define global variables
@@ -264,10 +269,12 @@ begin
           CheckItem(CompIndexFNISPatches, coUncheck);
           CheckItem(CompIndexFNISTool, coUncheck);
           CheckItem(CompIndexConfigurator, coUncheck);
+          CheckItem(CompIndexSEPluginChecker, coUncheck);
         end;
       ItemEnabled[CompIndexConfigurator] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISPatches] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISTool] := IsComponentSelected('Plugins\Python');
+      ItemEnabled[CompIndexSEPluginChecker] := IsComponentSelected('Plugins\Python');
       Invalidate; //required for text state to update correctly
     end;
 end;
