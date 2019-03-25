@@ -61,7 +61,6 @@ Name: "core"; Description: "Core Application"; Types: Custom Full; Flags: fixed
 Name: "QTDLL"; Description: "Qt DLL's"; Types: Full Custom; Flags: fixed
 Name: "FileExplorer"; Description: "Explorer++"; Types: Full Custom;
 Name: "Plugins"; Description: "MO2 Plugins"; Types: Full Custom
-Name: "Plugins\Python"; Description: "Python Support"; Types: Custom Full
 Name: "Plugins\Manual"; Description: "Manual Installer"; Types: Custom Full
 Name: "Plugins\Quick"; Description: "Quick Installer"; Types: Custom Full
 Name: "Plugins\Bain"; Description: "BAIN Installer"; Types: Custom Full
@@ -69,22 +68,23 @@ Name: "Plugins\FOMOD"; Description: "FOMOD Installer"; Types: Custom Full
 Name: "Plugins\NCC"; Description: "NCC Installer"; Types: Custom Full
 Name: "Plugins\LegacyINI"; Description: "Legacy INI editor"; Types: Custom Full
 Name: "Plugins\FNISCheck"; Description: "FNIS Checker"; Types: Custom Full
-Name: "Plugins\FNISPatches"; Description: "FNIS Patches"; Types: Custom Full
-Name: "Plugins\FNISTool"; Description: "FNIS Tool"; Types: Custom Full
-Name: "Plugins\Configurator"; Description: "Configurator"; Types: Custom Full
-Name: "Plugins\SEPluginChecker"; Description: "Script Extender Plugin Checker"; Types: Custom Full
+Name: "Plugins\Python"; Description: "Python Support"; Types: Custom Full
+Name: "Plugins\FNISPatches"; Description: "FNIS Patches (requires Python)"; Types: Custom Full
+Name: "Plugins\FNISTool"; Description: "FNIS Tool (requires Python)"; Types: Custom Full
+Name: "Plugins\Configurator"; Description: "Configurator (requires Python)"; Types: Custom Full
+Name: "Plugins\SEPluginChecker"; Description: "Script Extender Plugin Checker (requires Python)"; Types: Custom Full
 Name: "Plugins\File"; Description: "File Preview"; Types: Custom Full
 Name: "Plugins\Oblivion"; Description: "Oblivion Support"; Types: Custom Full
 Name: "Plugins\Morrowind"; Description: "Morrowind Support"; Types: Custom Full
 Name: "Plugins\Fallout3"; Description: "Fallout 3 Support"; Types: Custom Full
-Name: "Plugins\TTW"; Description: "TTW Support"; Types: Custom Full
-Name: "Plugins\Fallout4"; Description: "Fallout 4 Support"; Types: Custom Full
-Name: "Plugins\Fallout4VR"; Description: "Fallout 4 VR Support"; Types: Custom Full
 Name: "Plugins\NV"; Description: "New Vegas Support"; Types: Custom Full
+Name: "Plugins\TTW"; Description: "TTW Support (requires Fallout 3 and New Vegas)"; Types: Custom Full
+Name: "Plugins\Fallout4"; Description: "Fallout 4 Support"; Types: Custom Full
+Name: "Plugins\Fallout4VR"; Description: "Fallout 4 VR Support (requires Fallout 4)"; Types: Custom Full
 Name: "Plugins\Skyrim"; Description: "Skyrim Support"; Types: Custom Full
-Name: "Plugins\SkyrimVR"; Description: "SkyrimVR Support"; Types: Custom Full
-Name: "Plugins\SkyrimSE"; Description: "SkyrimSE Support"; Types: Custom Full
-Name: "Plugins\Enderal"; Description: "Enderal Support"; Types: Custom Full
+Name: "Plugins\Enderal"; Description: "Enderal Support (requires Skyrim)"; Types: Custom Full
+Name: "Plugins\SkyrimSE"; Description: "SkyrimSE Support (requires Skyrim)"; Types: Custom Full
+Name: "Plugins\SkyrimVR"; Description: "SkyrimVR Support (requires Skyrim and SkyrimSE)"; Types: Custom Full
 Name: "Translations"; Description: "Translations"; Types: Custom Full
 Name: "Tutorials"; Description: "Tutorials"; Types: Custom Full
 Name: "Stylesheets"; Description: "Stylesheets"; Types: Custom Full
@@ -252,6 +252,14 @@ const
   CompIndexFNISTool = 13;
   CompIndexConfigurator = 14;
   CompIndexSEPluginChecker = 15;
+  CompIndexGameFallout3 = 19;
+  CompIndexGameTTW = 21;
+  CompIndexGameFallout4 = 22;
+  CompIndexGameFallout4VR = 23;
+  CompIndexGameSkyrim = 24;
+  CompIndexGameEnderal = 25;
+  CompIndexGameSkyrimSE = 26;
+  CompIndexGameSkyrimVR = 27;
 
 var
 //Define global variables
@@ -264,6 +272,7 @@ procedure UpdateComponents;
 begin
   with WizardForm.ComponentsList do
     begin
+      //Python plugins require Python
       if not IsComponentSelected('Plugins\Python') then
         begin
           CheckItem(CompIndexFNISPatches, coUncheck);
@@ -275,6 +284,47 @@ begin
       ItemEnabled[CompIndexFNISPatches] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISTool] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexSEPluginChecker] := IsComponentSelected('Plugins\Python');
+
+      //Skyrim VR, Skyrim SE, and Enderal require Skyrim for full functionality
+      if not IsComponentSelected('Plugins\Skyrim') then
+        begin
+          CheckItem(CompIndexGameSkyrimVR, coUncheck);
+          CheckItem(CompIndexGameSkyrimSE, coUncheck);
+          CheckItem(CompIndexGameEnderal, coUncheck);
+        end;
+      ItemEnabled[CompIndexGameSkyrimVR] := IsComponentSelected('Plugins\Skyrim');
+      ItemEnabled[CompIndexGameSkyrimSE] := IsComponentSelected('Plugins\Skyrim');
+      ItemEnabled[CompIndexGameEnderal] := IsComponentSelected('Plugins\Skyrim');
+
+      //Skyrim VR requires Skyrim SE for full functionality
+      if not IsComponentSelected('Plugins\SkyrimSE') then
+        begin
+          CheckItem(CompIndexGameSkyrimVR, coUncheck);
+        end;
+      ItemEnabled[CompIndexGameSkyrimVR] := IsComponentSelected('Plugins\SkyrimSE');
+
+      //TTW requires Fallout 3 for full functionality
+      if not IsComponentSelected('Plugins\Fallout3') then
+        begin
+          CheckItem(CompIndexGameTTW, coUncheck);
+        end;
+      ItemEnabled[CompIndexGameTTW] := IsComponentSelected('Plugins\Fallout3');
+
+
+      //TTW requires New Vegas for full functionality
+      if not IsComponentSelected('Plugins\NV') then
+        begin
+          CheckItem(CompIndexGameTTW, coUncheck);
+        end;
+      ItemEnabled[CompIndexGameTTW] := IsComponentSelected('Plugins\NV');
+
+      //Fallout 4 VR requires Fallout 4 for full functionality
+      if not IsComponentSelected('Plugins\Fallout4') then
+        begin
+          CheckItem(CompIndexGameFallout4VR, coUncheck);
+        end;
+      ItemEnabled[CompIndexGameFallout4VR] := IsComponentSelected('Plugins\Fallout4');
+
       Invalidate; //required for text state to update correctly
     end;
 end;
