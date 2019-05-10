@@ -92,7 +92,7 @@ Name: "Nexus"; Description: "Handle Nexus Links"
 
 [Files]
 ;Core Files
-Source: "..\..\..\..\install\bin\boost_python37-vc141-mt-x64-1_69.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
+Source: "..\..\..\..\install\bin\boost_python37-vc142-mt-x64-1_70.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\helper.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\libeay32.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\..\..\install\bin\ModOrganizer.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: core
