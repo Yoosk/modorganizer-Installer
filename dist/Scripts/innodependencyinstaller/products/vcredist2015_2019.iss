@@ -10,8 +10,8 @@ vcredist2015_2019_size_x64=14.4 MB
 
 [Code]
 const
-	vcredist2015_2019_url = 'https://download.visualstudio.microsoft.com/download/pr/092cda8f-872f-47fd-b549-54bbb8a81877/ddc5ec3f90091ca690a67d0d697f1242/vc_redist.x86.exe';
-	vcredist2015_2019_url_x64 = 'https://download.visualstudio.microsoft.com/download/pr/21614507-28c5-47e3-973f-85e7f66545a4/f3a2caa13afd59dd0e57ea374dbe8855/vc_redist.x64.exe';
+	vcredist2015_2019_url = 'http://download.visualstudio.microsoft.com/download/pr/092cda8f-872f-47fd-b549-54bbb8a81877/ddc5ec3f90091ca690a67d0d697f1242/vc_redist.x86.exe';
+	vcredist2015_2019_url_x64 = 'http://download.visualstudio.microsoft.com/download/pr/21614507-28c5-47e3-973f-85e7f66545a4/f3a2caa13afd59dd0e57ea374dbe8855/vc_redist.x64.exe';
 
 	vcredist2015_2019_upgradecode = '{65E5BD06-6392-3027-8C26-853107D3CF1A}';
 	vcredist2015_2019_upgradecode_x64 = '{36F68A90-239C-34DF-B58C-64B30153CE35}';
