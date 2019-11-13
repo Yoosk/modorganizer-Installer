@@ -128,6 +128,9 @@ WindowsServicePack=Windows %1 Service Pack %2
 #ifdef use_vc2017
 #include "products\vcredist2017.iss"
 #endif
+#ifdef use_vc2015_2019
+#include "products\vcredist2015_2019.iss"
+#endif
 
 #ifdef use_directxruntime
 #include "products\directxruntime.iss"
@@ -271,6 +274,10 @@ begin
 #ifdef use_vc2017
 	vcredist2017('14'); // min allowed version is 14.0
 #endif
+#ifdef use_vc2015_2019
+	vcredist2015_2019('14.20'); // min allowed version is 14.20 (VS Redist 2019)
+#endif
+
 
 #ifdef use_directxruntime
 	// extracts included setup file to temp folder so that we don't need to download it

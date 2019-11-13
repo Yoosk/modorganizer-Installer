@@ -34,7 +34,8 @@
 ;#define use_vc2012
 ;#define use_vc2013
 ;#define use_vc2015
-#define use_vc2017
+;#define use_vc2017
+#define use_vc2015_2019
 
 ;requires dxwebsetup.exe in src dir
 ;#define use_directxruntime
