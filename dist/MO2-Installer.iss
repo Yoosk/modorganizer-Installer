@@ -75,6 +75,7 @@ Name: "Plugins\FNISTool"; Description: "FNIS Tool (requires Python)"; Types: Cus
 Name: "Plugins\Configurator"; Description: "Configurator (requires Python)"; Types: Custom Full
 Name: "Plugins\SEPluginChecker"; Description: "Script Extender Plugin Checker (requires Python)"; Types: Custom Full
 Name: "Plugins\DDSPreview"; Description: "DDS Preview (requires Python)"; Types: Custom Full
+Name: "Plugins\Form43Checker"; Description: "Form 43 Checker (requires Python)"; Types: Custom Full
 Name: "Plugins\File"; Description: "File Preview"; Types: Custom Full
 Name: "Translations"; Description: "Translations"; Types: Custom Full
 Name: "Tutorials"; Description: "Tutorials"; Types: Custom Full
@@ -185,6 +186,8 @@ Source: "..\..\..\..\install\bin\plugins\FNISToolReset.py"; DestDir: "{app}\plug
 Source: "..\..\..\..\install\bin\plugins\ScriptExtenderPluginChecker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SEPluginChecker
 ;DDS Preview
 Source: "..\..\..\..\install\bin\plugins\DDSPreview.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\DDSPreview
+;Form 43 Checker
+Source: "..\..\..\..\install\bin\plugins\Form43Checker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Form43Checker
 ;End Plugin Groups
 ;Translations
 Source: "..\..\..\..\install\bin\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Translations
@@ -237,6 +240,7 @@ const
   CompIndexConfigurator = 15;
   CompIndexSEPluginChecker = 16;
   CompIndexDDSPreview = 17;
+  CompIndexForm43Checker = 18;
 
 var
 //Define global variables
@@ -257,12 +261,14 @@ begin
           CheckItem(CompIndexConfigurator, coUncheck);
           CheckItem(CompIndexSEPluginChecker, coUncheck);
           CheckItem(CompIndexDDSPreview, coUncheck);
+          CheckItem(CompIndexForm43Checker, coUncheck);
         end;
       ItemEnabled[CompIndexConfigurator] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISPatches] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISTool] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexSEPluginChecker] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexDDSPreview] := IsComponentSelected('Plugins\Python');
+      ItemEnabled[CompIndexForm43Checker] := IsComponentSelected('Plugins\Python');
 
       Invalidate; //required for text state to update correctly
     end;
