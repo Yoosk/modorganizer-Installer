@@ -197,7 +197,7 @@ Source: "..\..\..\..\install\bin\plugins\game_enderal.dll"; DestDir: "{app}\plug
 Source: "..\..\..\..\install\bin\plugins\FNISPatches.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISPatches
 ;FNIS Tool
 Source: "..\..\..\..\install\bin\plugins\FNISTool.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
-Source: "..\..\..\..\install\bin\plugins\FNISToolReset.py"; DestDir: {app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
+Source: "..\..\..\..\install\bin\plugins\FNISToolReset.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
 ;Script Extender Plugin Checker
 Source: "..\..\..\..\install\bin\plugins\ScriptExtenderPluginChecker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SEPluginChecker
 ;End Plugin Groups
