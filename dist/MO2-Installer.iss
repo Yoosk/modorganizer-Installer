@@ -114,6 +114,7 @@ Source: "..\..\..\..\install\bin\styles\*"; DestDir: "{app}\styles"; Flags: igno
 ;QT DLLS
 Source: "..\..\..\..\install\bin\dlls\imageformats\*"; DestDir: "{app}\dlls\imageformats"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "..\..\..\..\install\bin\dlls\Qt5Core.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
+Source: "..\..\..\..\install\bin\dlls\QT5Concurrent.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\Qt5Gui.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\Qt5Network.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\Qt5Positioning.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
@@ -150,6 +151,7 @@ Source: "..\..\..\..\install\bin\NCC\*"; DestDir: "{app}\NCC"; Flags: ignorevers
 Source: "..\..\..\..\install\bin\plugins\installer_ncc.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\NCC
 ;Python Support
 Source: "..\..\..\..\install\bin\python37.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Plugins\Python
+Source: "..\..\..\..\install\bin\pythoncore.zip"; DestDir: "{app}"; Flags: ignoreversion; Components: Plugins\Python
 Source: "..\..\..\..\install\bin\pythoncore\*"; DestDir: "{app}\pythoncore"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Plugins\Python
 Source: "..\..\..\..\install\bin\plugins\plugin_python.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Python
 Source: "..\..\..\..\install\bin\plugins\data\*"; DestDir: "{app}\plugins\data"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Plugins\Python
