@@ -219,9 +219,6 @@ Type: filesandordirs; Name: "{app}/uibase.dll"
 Type: filesandordirs; Name: "{app}/uninstall.exe"
 Type: filesandordirs; Name: "{app}/usvfs_*"
 
-[Dirs]
-Name: "{app}\Logs\logs"; Components: core
-
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}/pythoncore"
 Type: filesandordirs; Name: "{app}/plugins"
