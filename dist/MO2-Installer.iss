@@ -77,6 +77,7 @@ Name: "Plugins\SEPluginChecker"; Description: "Script Extender Plugin Checker (r
 Name: "Plugins\DDSPreview"; Description: "DDS Preview (requires Python)"; Types: Custom Full
 Name: "Plugins\Form43Checker"; Description: "Form 43 Checker (requires Python)"; Types: Custom Full
 Name: "Plugins\File"; Description: "File Preview"; Types: Custom Full
+Name: "Plugins\BSAPacker"; Description: "BSA/BA2 Packer"; Types: Custom Full
 Name: "Translations"; Description: "Translations"; Types: Custom Full
 Name: "Tutorials"; Description: "Tutorials"; Types: Custom Full
 Name: "Stylesheets"; Description: "Stylesheets"; Types: Custom Full
@@ -188,6 +189,9 @@ Source: "..\..\..\..\install\bin\plugins\ScriptExtenderPluginChecker.py"; DestDi
 Source: "..\..\..\..\install\bin\plugins\DDSPreview.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\DDSPreview
 ;Form 43 Checker
 Source: "..\..\..\..\install\bin\plugins\Form43Checker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Form43Checker
+;BSA/BA2 Packer
+Source: "..\..\..\..\install\bin\dlls\libbsarch.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: Plugins\BSAPacker
+Source: "..\..\..\..\install\bin\plugins\bsa_packer.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\BSAPacker
 ;End Plugin Groups
 ;Translations
 Source: "..\..\..\..\install\bin\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Translations
