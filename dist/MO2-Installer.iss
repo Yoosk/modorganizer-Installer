@@ -61,6 +61,7 @@ Name: "core"; Description: "Core Application"; Types: Custom Full; Flags: fixed
 Name: "QTDLL"; Description: "Qt DLL's"; Types: Full Custom; Flags: fixed
 Name: "FileExplorer"; Description: "Explorer++"; Types: Full Custom;
 Name: "Plugins"; Description: "MO2 Plugins"; Types: Full Custom
+Name: "Plugins\GameSupport";  Description: "Game Support"; Types: Custom Full; Flags: fixed
 Name: "Plugins\Manual"; Description: "Manual Installer"; Types: Custom Full
 Name: "Plugins\Quick"; Description: "Quick Installer"; Types: Custom Full
 Name: "Plugins\Bain"; Description: "BAIN Installer"; Types: Custom Full
@@ -73,18 +74,10 @@ Name: "Plugins\FNISPatches"; Description: "FNIS Patches (requires Python)"; Type
 Name: "Plugins\FNISTool"; Description: "FNIS Tool (requires Python)"; Types: Custom Full
 Name: "Plugins\Configurator"; Description: "Configurator (requires Python)"; Types: Custom Full
 Name: "Plugins\SEPluginChecker"; Description: "Script Extender Plugin Checker (requires Python)"; Types: Custom Full
+Name: "Plugins\DDSPreview"; Description: "DDS Preview (requires Python)"; Types: Custom Full
+Name: "Plugins\Form43Checker"; Description: "Form 43 Checker (requires Python)"; Types: Custom Full
 Name: "Plugins\File"; Description: "File Preview"; Types: Custom Full
-Name: "Plugins\Oblivion"; Description: "Oblivion Support"; Types: Custom Full
-Name: "Plugins\Morrowind"; Description: "Morrowind Support"; Types: Custom Full
-Name: "Plugins\Fallout3"; Description: "Fallout 3 Support"; Types: Custom Full
-Name: "Plugins\NV"; Description: "New Vegas Support"; Types: Custom Full
-Name: "Plugins\TTW"; Description: "TTW Support (requires Fallout 3 and New Vegas)"; Types: Custom Full
-Name: "Plugins\Fallout4"; Description: "Fallout 4 Support"; Types: Custom Full
-Name: "Plugins\Fallout4VR"; Description: "Fallout 4 VR Support (requires Fallout 4)"; Types: Custom Full
-Name: "Plugins\Skyrim"; Description: "Skyrim Support"; Types: Custom Full
-Name: "Plugins\Enderal"; Description: "Enderal Support (requires Skyrim)"; Types: Custom Full
-Name: "Plugins\SkyrimSE"; Description: "SkyrimSE Support (requires Skyrim)"; Types: Custom Full
-Name: "Plugins\SkyrimVR"; Description: "SkyrimVR Support (requires Skyrim and SkyrimSE)"; Types: Custom Full
+Name: "Plugins\BSAPacker"; Description: "BSA/BA2 Packer"; Types: Custom Full
 Name: "Translations"; Description: "Translations"; Types: Custom Full
 Name: "Tutorials"; Description: "Tutorials"; Types: Custom Full
 Name: "Stylesheets"; Description: "Stylesheets"; Types: Custom Full
@@ -124,6 +117,7 @@ Source: "..\..\..\..\install\bin\styles\*"; DestDir: "{app}\styles"; Flags: igno
 ;QT DLLS
 Source: "..\..\..\..\install\bin\dlls\imageformats\*"; DestDir: "{app}\dlls\imageformats"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "..\..\..\..\install\bin\dlls\Qt5Core.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
+Source: "..\..\..\..\install\bin\dlls\QT5Concurrent.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\Qt5Gui.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\Qt5Network.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
 Source: "..\..\..\..\install\bin\dlls\Qt5Positioning.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: QTDLL
@@ -160,6 +154,7 @@ Source: "..\..\..\..\install\bin\NCC\*"; DestDir: "{app}\NCC"; Flags: ignorevers
 Source: "..\..\..\..\install\bin\plugins\installer_ncc.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\NCC
 ;Python Support
 Source: "..\..\..\..\install\bin\python37.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: Plugins\Python
+Source: "..\..\..\..\install\bin\pythoncore.zip"; DestDir: "{app}"; Flags: ignoreversion; Components: Plugins\Python
 Source: "..\..\..\..\install\bin\pythoncore\*"; DestDir: "{app}\pythoncore"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Plugins\Python
 Source: "..\..\..\..\install\bin\plugins\plugin_python.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Python
 Source: "..\..\..\..\install\bin\plugins\data\*"; DestDir: "{app}\plugins\data"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Plugins\Python
@@ -171,35 +166,32 @@ Source: "..\..\..\..\install\bin\plugins\check_fnis.dll"; DestDir: "{app}\plugin
 Source: "..\..\..\..\install\bin\plugins\pyCfg.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Configurator
 ;File Preview
 Source: "..\..\..\..\install\bin\plugins\preview_base.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\File
-;Oblivion Support
-Source: "..\..\..\..\install\bin\plugins\game_oblivion.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Oblivion
-;Morrowind Support
-Source: "..\..\..\..\install\bin\plugins\game_morrowind.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Morrowind
-;Fallout 3 Support
-Source: "..\..\..\..\install\bin\plugins\game_fallout3.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Fallout3
-;TTW Support
-Source: "..\..\..\..\install\bin\plugins\game_ttw.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\TTW
-;Fallout 4 Support
-Source: "..\..\..\..\install\bin\plugins\game_fallout4.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Fallout4
-;Fallout 4 VR Support
-Source: "..\..\..\..\install\bin\plugins\game_fallout4vr.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Fallout4VR
-;New Vegas Support
-Source: "..\..\..\..\install\bin\plugins\game_falloutNV.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\NV
-;Skyrim Support
-Source: "..\..\..\..\install\bin\plugins\game_skyrim.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Skyrim
-;SkyrimVR Support
-Source: "..\..\..\..\install\bin\plugins\game_skyrimvr.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SkyrimVR
-;SkyrimSE Support
-Source: "..\..\..\..\install\bin\plugins\game_skyrimse.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SkyrimSE
-;Enderal Support
-Source: "..\..\..\..\install\bin\plugins\game_enderal.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Enderal
+;Game Support
+Source: "..\..\..\..\install\bin\plugins\game_oblivion.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_morrowind.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_fallout3.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_ttw.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_fallout4.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_fallout4vr.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_falloutNV.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_skyrim.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_skyrimvr.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_skyrimse.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
+Source: "..\..\..\..\install\bin\plugins\game_enderal.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\GameSupport
 ;FNIS Patches
 Source: "..\..\..\..\install\bin\plugins\FNISPatches.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISPatches
 ;FNIS Tool
 Source: "..\..\..\..\install\bin\plugins\FNISTool.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
-Source: "..\..\..\..\install\bin\plugins\FNISToolReset.py"; DestDir: {app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
+Source: "..\..\..\..\install\bin\plugins\FNISToolReset.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\FNISTool
 ;Script Extender Plugin Checker
 Source: "..\..\..\..\install\bin\plugins\ScriptExtenderPluginChecker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\SEPluginChecker
+;DDS Preview
+Source: "..\..\..\..\install\bin\plugins\DDSPreview.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\DDSPreview
+;Form 43 Checker
+Source: "..\..\..\..\install\bin\plugins\Form43Checker.py"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\Form43Checker
+;BSA/BA2 Packer
+Source: "..\..\..\..\install\bin\dlls\libbsarch.dll"; DestDir: "{app}\dlls"; Flags: ignoreversion; Components: Plugins\BSAPacker
+Source: "..\..\..\..\install\bin\plugins\bsa_packer.dll"; DestDir: "{app}\plugins"; Flags: ignoreversion; Components: Plugins\BSAPacker
 ;End Plugin Groups
 ;Translations
 Source: "..\..\..\..\install\bin\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: Translations
@@ -239,9 +231,6 @@ Type: filesandordirs; Name: "{app}/uibase.dll"
 Type: filesandordirs; Name: "{app}/uninstall.exe"
 Type: filesandordirs; Name: "{app}/usvfs_*"
 
-[Dirs]
-Name: "{app}\Logs\logs"; Components: core
-
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}/pythoncore"
 Type: filesandordirs; Name: "{app}/plugins"
@@ -250,18 +239,12 @@ Type: filesandordirs; Name: "{app}/webcache"
 [Code]
 const
 //Define global constants
-  CompIndexFNISPatches = 12;
-  CompIndexFNISTool = 13;
-  CompIndexConfigurator = 14;
-  CompIndexSEPluginChecker = 15;
-  CompIndexGameFallout3 = 19;
-  CompIndexGameTTW = 21;
-  CompIndexGameFallout4 = 22;
-  CompIndexGameFallout4VR = 23;
-  CompIndexGameSkyrim = 24;
-  CompIndexGameEnderal = 25;
-  CompIndexGameSkyrimSE = 26;
-  CompIndexGameSkyrimVR = 27;
+  CompIndexFNISPatches = 13;
+  CompIndexFNISTool = 14;
+  CompIndexConfigurator = 15;
+  CompIndexSEPluginChecker = 16;
+  CompIndexDDSPreview = 17;
+  CompIndexForm43Checker = 18;
 
 var
 //Define global variables
@@ -281,51 +264,15 @@ begin
           CheckItem(CompIndexFNISTool, coUncheck);
           CheckItem(CompIndexConfigurator, coUncheck);
           CheckItem(CompIndexSEPluginChecker, coUncheck);
+          CheckItem(CompIndexDDSPreview, coUncheck);
+          CheckItem(CompIndexForm43Checker, coUncheck);
         end;
       ItemEnabled[CompIndexConfigurator] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISPatches] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexFNISTool] := IsComponentSelected('Plugins\Python');
       ItemEnabled[CompIndexSEPluginChecker] := IsComponentSelected('Plugins\Python');
-
-      //Skyrim VR, Skyrim SE, and Enderal require Skyrim for full functionality
-      if not IsComponentSelected('Plugins\Skyrim') then
-        begin
-          CheckItem(CompIndexGameSkyrimVR, coUncheck);
-          CheckItem(CompIndexGameSkyrimSE, coUncheck);
-          CheckItem(CompIndexGameEnderal, coUncheck);
-        end;
-      ItemEnabled[CompIndexGameSkyrimVR] := IsComponentSelected('Plugins\Skyrim');
-      ItemEnabled[CompIndexGameSkyrimSE] := IsComponentSelected('Plugins\Skyrim');
-      ItemEnabled[CompIndexGameEnderal] := IsComponentSelected('Plugins\Skyrim');
-
-      //Skyrim VR requires Skyrim SE for full functionality
-      if not IsComponentSelected('Plugins\SkyrimSE') then
-        begin
-          CheckItem(CompIndexGameSkyrimVR, coUncheck);
-        end;
-      ItemEnabled[CompIndexGameSkyrimVR] := IsComponentSelected('Plugins\SkyrimSE');
-
-      //TTW requires Fallout 3 for full functionality
-      if not IsComponentSelected('Plugins\Fallout3') then
-        begin
-          CheckItem(CompIndexGameTTW, coUncheck);
-        end;
-      ItemEnabled[CompIndexGameTTW] := IsComponentSelected('Plugins\Fallout3');
-
-
-      //TTW requires New Vegas for full functionality
-      if not IsComponentSelected('Plugins\NV') then
-        begin
-          CheckItem(CompIndexGameTTW, coUncheck);
-        end;
-      ItemEnabled[CompIndexGameTTW] := IsComponentSelected('Plugins\NV');
-
-      //Fallout 4 VR requires Fallout 4 for full functionality
-      if not IsComponentSelected('Plugins\Fallout4') then
-        begin
-          CheckItem(CompIndexGameFallout4VR, coUncheck);
-        end;
-      ItemEnabled[CompIndexGameFallout4VR] := IsComponentSelected('Plugins\Fallout4');
+      ItemEnabled[CompIndexDDSPreview] := IsComponentSelected('Plugins\Python');
+      ItemEnabled[CompIndexForm43Checker] := IsComponentSelected('Plugins\Python');
 
       Invalidate; //required for text state to update correctly
     end;
